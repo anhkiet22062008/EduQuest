@@ -1,0 +1,72 @@
+{
+  "entities": {
+    "knowledge": {
+      "title": "Knowledge",
+      "description": "A piece of educational knowledge.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "The title of the knowledge." },
+        "subject": { "type": "string", "description": "The subject (e.g. Math, Physics)." },
+        "summary": { "type": "string", "description": "A brief theoretical summary." },
+        "image_url": { "type": "string", "description": "An optional illustration image URL." },
+        "example": { "type": "string", "description": "An illustrative example." },
+        "keywords": { "type": "array", "items": { "type": "string" }, "description": "List of related keywords." },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "subject", "summary", "keywords"]
+    },
+    "subject": {
+      "title": "Subject",
+      "description": "A school subject.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "The name of the subject." },
+        "icon": { "type": "string", "description": "Lucide icon name." }
+      },
+      "required": ["name"]
+    },
+    "user": {
+      "title": "User",
+      "description": "A user profile.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "student"] },
+        "displayName": { "type": "string" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "bookmark": {
+      "title": "Bookmark",
+      "description": "A saved knowledge item for a user.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "knowledgeId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "knowledgeId"]
+    },
+    "feedback": {
+      "title": "Feedback",
+      "description": "User feedback on a knowledge item.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "knowledgeId": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "knowledgeId", "content"]
+    }
+  },
+  "firestore": {
+    "/knowledge/{knowledgeId}": { "schema": "knowledge", "description": "Collection of knowledge items." },
+    "/subjects/{subjectId}": { "schema": "subject", "description": "Collection of subjects." },
+    "/users/{userId}": { "schema": "user", "description": "Collection of user profiles." },
+    "/bookmarks/{bookmarkId}": { "schema": "bookmark", "description": "Collection of user bookmarks." },
+    "/feedback/{feedbackId}": { "schema": "feedback", "description": "Collection of user feedback." }
+  }
+}
